@@ -655,8 +655,8 @@ export default function App() {
 
       {/* Minimal Studio Footer */}
       <footer className="py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
-        <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering.</p>
-      </footer>
+  <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering · UK Standards · Distributed Studio.</p>
+</footer>
     </div>
   );
 }
