@@ -17,8 +17,7 @@ import {
   Code2,
   AlertCircle,
   FileCode,
-  Workflow,
-  UserCheck
+  Workflow
 } from 'lucide-react';
 
 export default function App() {
@@ -131,7 +130,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-[#07090e] text-slate-100 selection:bg-emerald-400 selection:text-black overflow-x-hidden font-sans">
       
-      {/* Dynamic Cursor Glow */}
+      {/* Subtle Mouse Glow */}
       <div 
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 opacity-40 hidden lg:block"
         style={{
@@ -139,7 +138,7 @@ export default function App() {
         }}
       />
 
-      {/* Grid Pattern Underlay */}
+      {/* Structural Atmospheric Grid */}
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       {/* Navigation Header */}
@@ -229,7 +228,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Column: Key Architectural Highlights */}
+            {/* Right Column: Architectural Highlights */}
             <div className="lg:col-span-4 border-l border-white/[0.08] lg:pl-10 space-y-4 font-mono">
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
                 <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// SPEED TO MARKET</p>
@@ -349,7 +348,7 @@ export default function App() {
                   <p className="text-xs font-mono text-emerald-400">{active.tagline}</p>
                 </div>
 
-                {/* Problem & Solution Breakdown */}
+                {/* The Problem & Solution Breakdown */}
                 <div className="space-y-4 text-xs leading-relaxed border-t border-white/[0.06] pt-5">
                   <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl space-y-1">
                     <div className="flex items-center gap-2 text-slate-300 font-mono font-bold uppercase text-[11px]">
