@@ -14,7 +14,11 @@ import {
   Play,
   Cpu,
   CheckCircle2,
-  Code2
+  Code2,
+  AlertCircle,
+  FileCode,
+  Workflow,
+  UserCheck
 } from 'lucide-react';
 
 export default function App() {
@@ -36,13 +40,19 @@ export default function App() {
       clientSector: 'Legal & Professional Services',
       title: 'LexiBridge — Regulatory Compliance Gateway',
       tagline: 'Automating AML Origin-of-Funds Verification & SRA Compliance',
-      description: 'Engineered for UK legal practices to replace fragmented paper intake with an encrypted KYC vault, politically exposed persons screening, and managing partner audit pipelines.',
+      challenge: 'UK legal practices face severe SRA audit penalties when managing partner onboarding manually through paper forms and unencrypted email PDF chains, leading to 5-day intake delays.',
+      solution: 'An encrypted client onboarding portal that automatically verifies proof of identity, screens against global PEP lists, validates source-of-funds documentation, and compiles a sealed compliance audit trail.',
+      architectureHighlights: [
+        'PostgreSQL Row-Level Security (RLS) ensuring strict multi-tenant legal client isolation.',
+        'Encrypted document intake vault with dynamic PDF hashing and verification logs.',
+        'Automated SRA audit-ready export pipeline with timestamped compliance certificates.'
+      ],
       metrics: [
         { label: 'Regulatory Alignment', val: 'SRA & AML Built-in' },
         { label: 'Intake Velocity', val: '80% Faster Sign-up' },
         { label: 'Security Standard', val: '256-Bit Encrypted Vault' }
       ],
-      stack: ['React', 'PostgreSQL', 'Encrypted Auth', 'Tailwind CSS'],
+      stack: ['React', 'PostgreSQL', 'Encrypted Auth', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/lexibridge.mp4',
       statusUrl: 'https://lexibridge.internal/compliance/live'
     },
@@ -51,13 +61,19 @@ export default function App() {
       clientSector: 'Commercial Operations & Logistics',
       title: 'QueueFlow — Multi-Station Dispatch Engine',
       tagline: 'Zero-Latency Task Orchestration & Live Signage Sync',
-      description: 'High-throughput operational routing platform connecting digital waiting room signage kiosks, counter staff dispatchers, and live customer self-service booking portals.',
+      challenge: 'High-footfall customer counters suffer from bottlenecked queues, disconnected physical TV displays, and desk dispatchers working off manual paper tickets without centralized oversight.',
+      solution: 'A sub-50ms event-driven dispatch platform connecting customer check-in terminals, dynamic digital TV signage, desk operator consoles, and operations manager dashboards into a unified real-time state.',
+      architectureHighlights: [
+        'Bi-directional WebSocket streaming architecture with under 45ms state distribution.',
+        'Zero-refresh digital TV signage view with audio chime announcements and priority routing.',
+        'Operator desk telemetry tracking average turnaround times and queue velocity per station.'
+      ],
       metrics: [
         { label: 'WebSocket Latency', val: '< 45ms Synchronization' },
         { label: 'Hardware Output', val: 'Digital TV Signage + Kiosks' },
         { label: 'Queue Architecture', val: 'Atomic Dispatch State' }
       ],
-      stack: ['React', 'Supabase Realtime', 'WebSockets', 'Tailwind CSS'],
+      stack: ['React', 'Supabase Realtime', 'WebSockets', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/queueflow.mp4',
       statusUrl: 'wss://dispatch.queueflow.internal/stream'
     },
@@ -66,13 +82,19 @@ export default function App() {
       clientSector: 'Fintech & Quoting Engines',
       title: 'QuotePulse — Dynamic Algorithmic Pricing Portal',
       tagline: 'Real-Time Topology Modeling & Auto-Contract Dispatch',
-      description: 'Enterprise quoting engine that visualizes live cloud compute requirements, calculates multi-tier profit margins dynamically, and instantly compiles binding contract proposals.',
+      challenge: 'Commercial sales engineers waste 3+ hours per quote calculating multi-tier server configurations, bandwidth multipliers, and cloud profit margins in error-prone spreadsheets.',
+      solution: 'An interactive architectural estimation portal that allows clients to visually scale nodes and compute resources while calculating margin thresholds in real time and automatically compiling contract proposals.',
+      architectureHighlights: [
+        'Dynamic pricing state engine with multi-currency conversion (GBP, USD, EUR).',
+        'Custom interactive topology sliders linked to recursive compute cost matrices.',
+        'Instant client proposal compilation with automated CRM lead synchronization.'
+      ],
       metrics: [
         { label: 'Quoting Precision', val: '99.4% Automated Accuracy' },
         { label: 'Currency Switcher', val: 'GBP / USD / EUR Engine' },
         { label: 'CRM Synchronization', val: 'Integrated Prospect Pipeline' }
       ],
-      stack: ['React', 'Node.js Engine', 'PostgreSQL', 'Tailwind CSS'],
+      stack: ['React', 'Node.js Engine', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/quotepulse.mp4',
       statusUrl: 'https://quotepulse.engine/calculator/v2'
     },
@@ -81,13 +103,19 @@ export default function App() {
       clientSector: 'High-Throughput Web Platforms',
       title: 'Mbarete Match — Scalable Social Matching Engine',
       tagline: 'Row-Level Security Governance & Instant Messaging Core',
-      description: 'Full-stack matching web application built with Supabase RLS security policies, low-latency two-way chat websockets, and dynamic GPS distance calculations.',
+      challenge: 'Consumer social platforms require sub-second chat updates, robust spam mitigation, and strict data privacy protections without ballooning backend infrastructure expenses.',
+      solution: 'A full-stack matching platform featuring instant two-way WebSocket messaging, dynamic proximity calculations, verified profile workflows, and complete bilingual localization.',
+      architectureHighlights: [
+        'Comprehensive PostgreSQL Row-Level Security policies safeguarding private user chats.',
+        'Real-time Supabase message sync with optimistic UI updates and zero layout jank.',
+        'Dynamic GPS coordinate proximity calculations and localized English/Spanish routing.'
+      ],
       metrics: [
         { label: 'Data Security', val: 'Supabase Row-Level Security' },
         { label: 'Messaging Core', val: 'Zero-Latency 2-Way Chat' },
         { label: 'Localization', val: 'Bilingual Routing (EN/ES)' }
       ],
-      stack: ['React', 'Supabase RLS', 'PostgreSQL', 'Tailwind CSS'],
+      stack: ['React', 'Supabase RLS', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/mbarete-match.mp4',
       statusUrl: 'wss://app.mbaretematch.com/realtime/v1'
     }
@@ -103,7 +131,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-[#07090e] text-slate-100 selection:bg-emerald-400 selection:text-black overflow-x-hidden font-sans">
       
-      {/* Subtle Mouse Glow */}
+      {/* Dynamic Cursor Glow */}
       <div 
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 opacity-40 hidden lg:block"
         style={{
@@ -111,7 +139,7 @@ export default function App() {
         }}
       />
 
-      {/* Structural Atmospheric Grid */}
+      {/* Grid Pattern Underlay */}
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       {/* Navigation Header */}
@@ -119,7 +147,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
             
-            {/* Geometric Lapacho Emblem in Technical Emerald */}
+            {/* Geometric Lapacho Emblem */}
             <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <svg 
                 viewBox="0 0 24 24" 
@@ -151,8 +179,9 @@ export default function App() {
           <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest text-slate-400 uppercase">
             <a href="#showcase" className="hover:text-white transition-colors">01. Showcase</a>
             <a href="#architecture" className="hover:text-white transition-colors">02. Architecture</a>
-            <a href="#model" className="hover:text-white transition-colors">03. Sprint Model</a>
-            <a href="#contact" className="hover:text-white transition-colors">04. Contact</a>
+            <a href="#leadership" className="hover:text-white transition-colors">03. Principal</a>
+            <a href="#model" className="hover:text-white transition-colors">04. Sprint Model</a>
+            <a href="#contact" className="hover:text-white transition-colors">05. Contact</a>
           </nav>
 
           <a
@@ -200,7 +229,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Column: Architectural Highlights */}
+            {/* Right Column: Key Architectural Highlights */}
             <div className="lg:col-span-4 border-l border-white/[0.08] lg:pl-10 space-y-4 font-mono">
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
                 <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// SPEED TO MARKET</p>
@@ -235,7 +264,7 @@ export default function App() {
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Production Showcase</h2>
             </div>
             <p className="text-xs font-mono text-slate-400 max-w-sm">
-              Click any build below to inspect the functional video capture and architectural specifications.
+              Click any system below to inspect the functional video capture and deep architectural breakdown.
             </p>
           </div>
 
@@ -263,7 +292,7 @@ export default function App() {
                       {isSelected && (
                         <span className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 font-bold">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                          ACTIVE
+                          INSPECTION ACTIVE
                         </span>
                       )}
                     </div>
@@ -278,7 +307,7 @@ export default function App() {
               })}
             </div>
 
-            {/* Right Column: Active Video & Specs Theater */}
+            {/* Right Column: Active Video & Rich Specs Theater */}
             <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
               
               {/* Browser/Terminal Window Chrome Bar */}
@@ -303,21 +332,56 @@ export default function App() {
                 <video 
                   key={active.videoSrc}
                   controls 
+                  playsInline
                   preload="metadata"
                   className="w-full h-full object-cover"
-                  src={active.videoSrc}
                 >
-                  Your browser does not support video playback.
+                  <source src={active.videoSrc} type="video/mp4" />
+                  Your browser does not support HTML5 video playback.
                 </video>
               </div>
 
-              {/* Technical Specifications Container */}
+              {/* Detailed Technical Specifications & Case Study Narrative */}
               <div className="p-6 sm:p-8 space-y-6">
+                
                 <div>
-                  <h4 className="text-xl font-bold text-white mb-2">{active.title}</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">{active.description}</p>
+                  <h4 className="text-xl font-bold text-white mb-1.5">{active.title}</h4>
+                  <p className="text-xs font-mono text-emerald-400">{active.tagline}</p>
                 </div>
 
+                {/* Problem & Solution Breakdown */}
+                <div className="space-y-4 text-xs leading-relaxed border-t border-white/[0.06] pt-5">
+                  <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl space-y-1">
+                    <div className="flex items-center gap-2 text-slate-300 font-mono font-bold uppercase text-[11px]">
+                      <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
+                      <span>The Operational Bottleneck</span>
+                    </div>
+                    <p className="text-slate-400">{active.challenge}</p>
+                  </div>
+
+                  <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-xl space-y-1">
+                    <div className="flex items-center gap-2 text-slate-300 font-mono font-bold uppercase text-[11px]">
+                      <Workflow className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>The Engineered Solution</span>
+                    </div>
+                    <p className="text-slate-300">{active.solution}</p>
+                  </div>
+                </div>
+
+                {/* Architectural Highlights */}
+                <div className="space-y-2.5">
+                  <p className="text-[11px] font-mono uppercase tracking-widest text-slate-400">// Architectural Blueprint</p>
+                  <ul className="space-y-2 text-xs text-slate-300">
+                    {active.architectureHighlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 bg-white/[0.01] p-2.5 rounded-lg border border-white/[0.03]">
+                        <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                        <span className="leading-normal">{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Key Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-white/[0.06] py-4">
                   {active.metrics.map((m, idx) => (
                     <div key={idx} className="font-mono">
@@ -327,7 +391,8 @@ export default function App() {
                   ))}
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-4">
+                {/* Stack Tags & Conversion Link */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
                   <div className="flex flex-wrap gap-2">
                     {active.stack.map((tech, idx) => (
                       <span key={idx} className="text-[10px] font-mono text-slate-300 bg-white/[0.04] px-2.5 py-1 rounded-md border border-white/[0.06]">
@@ -343,6 +408,7 @@ export default function App() {
                     Request Similar Scope <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
+
               </div>
 
             </div>
@@ -389,13 +455,58 @@ export default function App() {
         </div>
       </section>
 
+      {/* Principal Leadership Section */}
+      <section id="leadership" className="py-24 border-b border-white/[0.08] bg-[#07090e]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-5">
+              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">
+                03. Studio Leadership
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6">
+                Senior architectural execution. No junior handoffs.
+              </h2>
+              <div className="space-y-3.5 text-xs font-mono text-slate-400">
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-slate-200">UK-Educated Senior Software Architect</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-slate-200">Open Degree in Information Technology</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-slate-200">Bilingual English / Spanish Technical Operations</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="text-slate-200">Direct Principal-to-Client Communication</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-xl space-y-5">
+              <p className="text-sm text-slate-300 leading-relaxed">
+                <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a high-velocity, single-thread engineering model. When you commission a sprint, your system architecture, PostgreSQL database schema, and live React frontend are designed and built directly by a seasoned British principal engineer.
+              </p>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                We eliminate the agency overhead of account managers, salespeople, and unvetted junior developers. You get direct architectural consultation, guaranteed sprint timelines, and production code engineered to stringent enterprise and regulatory standards.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Commercial Terms & 14-Day Sprint Model */}
       <section id="model" className="py-24 border-b border-white/[0.08] bg-[#090b12]/90">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">03. Commercial Model</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">04. Commercial Model</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Predictable Fixed-Fee Sprints</h2>
             </div>
             <p className="text-xs font-mono text-slate-400 max-w-sm">
@@ -484,7 +595,7 @@ export default function App() {
         <div className="max-w-3xl mx-auto px-6 sm:px-10">
           <div className="border border-white/[0.08] bg-[#0c0e18] p-8 sm:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
             
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">04. Initial Engagement</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">05. Initial Engagement</span>
             <h2 className="text-3xl font-bold text-white tracking-tight mb-4">
               Schedule an Architecture Review
             </h2>
