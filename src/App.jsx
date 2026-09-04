@@ -228,7 +228,7 @@ export default function App() {
             <div className="lg:col-span-8">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs font-mono mb-8 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>FIXED-PRICE 14-DAY RAPID ENGINEERING SPRINTS</span>
+                <span>FIXED-PRICE PHASED ENGINEERING SPRINTS</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] mb-8">
@@ -236,7 +236,7 @@ export default function App() {
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed mb-10">
-                We design, engineer, and deploy high-performance operational hubs, real-time dispatch systems, and compliance gateways. Production-ready software delivered in two weeks with zero hourly runaways.
+                We design, engineer, and deploy high-performance operational hubs, real-time dispatch systems, and compliance gateways. Production-ready software delivered in focused milestone sprints with zero hourly runaways.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
@@ -255,12 +255,12 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Column: Architectural Highlights */}
+            {/* Right Column: Key Architectural Highlights */}
             <div className="lg:col-span-4 border-l border-white/[0.08] lg:pl-10 space-y-4 font-mono">
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
                 <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// SPEED TO MARKET</p>
-                <p className="text-3xl font-bold text-white">14 Days</p>
-                <p className="text-xs text-slate-400 mt-1">From architectural spec to live deployment</p>
+                <p className="text-3xl font-bold text-white">2–4 Weeks</p>
+                <p className="text-xs text-slate-400 mt-1">Milestone-driven phased delivery</p>
               </div>
 
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
@@ -537,7 +537,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Commercial Terms & 14-Day Sprint Model */}
+      {/* Commercial Terms & Milestone Sprint Model */}
       <section id="model" className="py-24 border-b border-white/[0.08] bg-[#090b12]/90">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           
@@ -558,7 +558,7 @@ export default function App() {
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold uppercase">
-                    14-Day Rapid Sprint
+                    Phased Sprint Build
                   </span>
                   <span className="text-xs font-mono text-slate-400">Fixed Cost</span>
                 </div>
