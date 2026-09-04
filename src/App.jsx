@@ -53,7 +53,7 @@ export default function App() {
       ],
       stack: ['React', 'PostgreSQL', 'Encrypted Auth', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/lexibridge.mp4',
-      statusUrl: 'https://lexibridge.internal/compliance/live'
+      statusUrl: 'https://lexibridge-alpha.vercel.app'
     },
     queueflow: {
       id: 'queueflow',
@@ -74,7 +74,7 @@ export default function App() {
       ],
       stack: ['React', 'Supabase Realtime', 'WebSockets', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/queueflow.mp4',
-      statusUrl: 'wss://dispatch.queueflow.internal/stream'
+      statusUrl: 'https://queue-flow-one.vercel.app'
     },
     quotepulse: {
       id: 'quotepulse',
@@ -95,7 +95,7 @@ export default function App() {
       ],
       stack: ['React', 'Node.js Engine', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/quotepulse.mp4',
-      statusUrl: 'https://quotepulse.engine/calculator/v2'
+      statusUrl: 'https://quote-pulse-nine.vercel.app'
     },
     mbaretematch: {
       id: 'mbaretematch',
@@ -116,7 +116,7 @@ export default function App() {
       ],
       stack: ['React', 'Supabase RLS', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/mbarete-match.mp4',
-      statusUrl: 'wss://app.mbaretematch.com/realtime/v1'
+      statusUrl: 'https://mbaretematch.com'
     }
   };
 
@@ -317,9 +317,18 @@ export default function App() {
                   <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
                   <span className="ml-2 text-slate-400 hidden sm:inline">{active.title.split('—')[0]}</span>
                 </div>
-                <div className="px-3 py-0.5 rounded-full bg-black/60 border border-white/[0.06] text-[10px] text-slate-400 truncate max-w-[240px]">
-                  {active.statusUrl}
-                </div>
+                
+                {/* Active Clickable Live URL Pill */}
+                <a 
+                  href={active.statusUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-3 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/40 transition-all truncate max-w-[240px] flex items-center gap-1.5"
+                >
+                  <span>{active.statusUrl}</span>
+                  <ArrowUpRight className="w-2.5 h-2.5 shrink-0" />
+                </a>
+
                 <div className="flex items-center gap-1.5 text-emerald-400 text-[10px]">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>ONLINE</span>
@@ -390,7 +399,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* Stack Tags & Conversion Link */}
+                {/* Stack Tags & Direct Production Link */}
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
                   <div className="flex flex-wrap gap-2">
                     {active.stack.map((tech, idx) => (
@@ -401,10 +410,12 @@ export default function App() {
                   </div>
 
                   <a
-                    href="#contact"
+                    href={active.statusUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
                   >
-                    Request Similar Scope <ArrowRight className="w-3.5 h-3.5" />
+                    Open Live Deployment <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
 
@@ -655,8 +666,8 @@ export default function App() {
 
       {/* Minimal Studio Footer */}
       <footer className="py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
-  <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering · UK Standards · Distributed Studio.</p>
-</footer>
+        <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering · UK Standards · Distributed Studio.</p>
+      </footer>
     </div>
   );
 }
