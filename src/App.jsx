@@ -17,13 +17,17 @@ import {
   Code2,
   AlertCircle,
   FileCode,
-  Workflow
+  Workflow,
+  Loader2
 } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('lexibridge');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -122,9 +126,32 @@ export default function App() {
 
   const active = caseStudies[activeTab];
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("from_name", "Lapacho Creative Lead Gateway");
+    formData.append("subject", "New Architecture Review Request - Lapacho Creative");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      if (data.success) {
+        setFormSubmitted(true);
+      } else {
+        alert("Submission error: " + (data.message || "Please check your access key."));
+      }
+    } catch (err) {
+      alert("Network error connecting to the submission service. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -625,6 +652,7 @@ export default function App() {
                   <label className="block text-slate-400 uppercase mb-1.5">// Your Name</label>
                   <input
                     required
+                    name="name"
                     type="text"
                     placeholder="e.g. David Morrison"
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
@@ -635,6 +663,7 @@ export default function App() {
                   <label className="block text-slate-400 uppercase mb-1.5">// Work Email</label>
                   <input
                     required
+                    name="email"
                     type="email"
                     placeholder="david@company.co.uk"
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
@@ -645,6 +674,7 @@ export default function App() {
                   <label className="block text-slate-400 uppercase mb-1.5">// Operational Challenge or System Scope</label>
                   <textarea
                     required
+                    name="message"
                     rows={3}
                     placeholder="Describe your current software bottleneck or the custom portal you need built..."
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
@@ -653,9 +683,17 @@ export default function App() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl transition-all uppercase tracking-wider shadow-lg shadow-emerald-500/25 active:scale-95"
+                  disabled={isSubmitting}
+                  className="w-full py-4 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 disabled:opacity-50 rounded-xl transition-all uppercase tracking-wider shadow-lg shadow-emerald-500/25 active:scale-95 flex items-center justify-center gap-2"
                 >
-                  REQUEST 20-MIN ARCHITECTURE CALL
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>TRANSMITTING...</span>
+                    </>
+                  ) : (
+                    <span>REQUEST 20-MIN ARCHITECTURE CALL</span>
+                  )}
                 </button>
               </form>
             )}
