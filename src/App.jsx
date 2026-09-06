@@ -362,20 +362,51 @@ export default function App() {
       <section id="showcase" className="py-24 border-b border-white/[0.08] bg-[#090b12]/90 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 lg:mb-12 gap-6">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">01. Live Systems</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Production Showcase</h2>
             </div>
             <p className="text-xs font-mono text-slate-400 max-w-sm">
-              Click any system below to inspect the functional video capture and deep architectural breakdown.
+              Select any system below to inspect the functional video capture and deep architectural breakdown.
             </p>
+          </div>
+
+          {/* Mobile-Only Compact 2x2 Switcher (Keeps the video directly under your finger) */}
+          <div className="grid grid-cols-2 gap-2.5 lg:hidden mb-6">
+            {Object.keys(caseStudies).map((key) => {
+              const item = caseStudies[key];
+              const isSelected = activeTab === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`p-3 rounded-xl border text-left transition-all ${
+                    isSelected 
+                      ? 'bg-emerald-500/15 border-emerald-400/80 shadow-md shadow-emerald-500/10' 
+                      : 'bg-white/[0.02] border-white/[0.08] hover:border-white/20'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[9px] font-mono tracking-wider uppercase text-slate-400 truncate">
+                      {item.clientSector.split('&')[0].trim()}
+                    </span>
+                    {isSelected && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    )}
+                  </div>
+                  <h3 className={`text-xs font-bold truncate ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                    {item.title.split('—')[0].trim()}
+                  </h3>
+                </button>
+              );
+            })}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Column: Interactive Selector List */}
-            <div className="lg:col-span-5 space-y-3">
+            {/* Desktop-Only Selector List (Hidden on mobile to eliminate vertical dead space) */}
+            <div className="hidden lg:block lg:col-span-5 space-y-3">
               {Object.keys(caseStudies).map((key) => {
                 const item = caseStudies[key];
                 const isSelected = activeTab === key;
@@ -411,8 +442,8 @@ export default function App() {
               })}
             </div>
 
-            {/* Right Column: Active Video & Rich Specs Theater */}
-            <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
+            {/* Active Video & Rich Specs Theater */}
+            <div className="w-full lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
               
               {/* Browser/Terminal Window Chrome Bar */}
               <div className="px-4 py-3 bg-[#080910] border-b border-white/[0.06] flex items-center justify-between font-mono text-[11px] text-slate-400">
@@ -428,7 +459,7 @@ export default function App() {
                   href={active.statusUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="px-3 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/40 transition-all truncate max-w-[240px] flex items-center gap-1.5"
+                  className="px-3 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/40 transition-all truncate max-w-[200px] sm:max-w-[240px] flex items-center gap-1.5"
                 >
                   <span>{active.statusUrl}</span>
                   <ArrowUpRight className="w-2.5 h-2.5 shrink-0" />
