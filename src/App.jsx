@@ -18,7 +18,9 @@ import {
   AlertCircle,
   FileCode,
   Workflow,
-  Loader2
+  Loader2,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
@@ -154,6 +157,10 @@ export default function App() {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#07090e] text-slate-100 selection:bg-emerald-400 selection:text-black overflow-x-hidden font-sans">
       
@@ -169,12 +176,12 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07090e]/90 backdrop-blur-xl border-b border-white/[0.08]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07090e]/95 backdrop-blur-xl border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
             
             {/* Geometric Lapacho Emblem */}
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <a href="#" className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:border-emerald-400/40 transition-colors">
               <svg 
                 viewBox="0 0 24 24" 
                 fill="none" 
@@ -190,7 +197,7 @@ export default function App() {
                 <path d="M22 12C17 9 15 9 12 12C15 15 17 15 22 12Z" fill="currentColor" fillOpacity="0.25" />
                 <circle cx="12" cy="12" r="1.5" className="fill-emerald-400" />
               </svg>
-            </div>
+            </a>
 
             <div className="flex items-center gap-3">
               <span className="font-bold tracking-tight text-white text-base">
@@ -202,6 +209,7 @@ export default function App() {
             </div>
           </div>
 
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest text-slate-400 uppercase">
             <a href="#showcase" className="hover:text-white transition-colors">01. Showcase</a>
             <a href="#architecture" className="hover:text-white transition-colors">02. Architecture</a>
@@ -210,18 +218,88 @@ export default function App() {
             <a href="#contact" className="hover:text-white transition-colors">05. Contact</a>
           </nav>
 
-          <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_15px_rgba(52,211,153,0.25)] active:scale-95"
-          >
-            <span>DISCUSS PROJECT</span>
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_15px_rgba(52,211,153,0.25)] active:scale-95"
+            >
+              <span>DISCUSS PROJECT</span>
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* Mobile Actions: Compact CTA & Hamburger Toggle */}
+          <div className="flex md:hidden items-center gap-2.5">
+            <a
+              href="#contact"
+              className="px-3 py-1.5 text-[11px] font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_10px_rgba(52,211,153,0.2)]"
+            >
+              DISCUSS
+            </a>
+            
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-slate-300 hover:text-white hover:bg-white/[0.04] rounded-lg border border-white/10 transition-all focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-400" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
         </div>
+
+        {/* Mobile Slide-Down Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-white/[0.08] bg-[#07090e]/98 px-6 py-6 font-mono text-xs uppercase tracking-widest space-y-4 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="flex flex-col space-y-3.5">
+              <a 
+                href="#showcase" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>01. Showcase</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#architecture" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>02. Architecture</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#leadership" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>03. Principal</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#model" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>04. Sprint Model</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#contact" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold transition-all"
+              >
+                <span>05. Schedule Review</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 sm:pt-48 sm:pb-28 border-b border-white/[0.08]">
+      <section className="relative pt-36 pb-20 sm:pt-48 sm:pb-28 border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
