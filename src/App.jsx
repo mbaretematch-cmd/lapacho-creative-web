@@ -44,82 +44,82 @@ export default function App() {
     lexibridge: {
       id: 'lexibridge',
       clientSector: 'Legal & Professional Services',
-      title: 'LexiBridge — Regulatory Compliance Gateway',
-      tagline: 'Automating AML Origin-of-Funds Verification & SRA Compliance',
-      challenge: 'UK legal practices face severe SRA audit penalties when managing partner onboarding manually through paper forms and unencrypted email PDF chains, leading to 5-day intake delays.',
-      solution: 'An encrypted client onboarding portal that automatically verifies proof of identity, screens against global PEP lists, validates source-of-funds documentation, and compiles a sealed compliance audit trail.',
+      title: 'LexiBridge — Client Onboarding & Compliance Portal',
+      tagline: 'Automating Intake, Document Verification & Tenant Data Isolation',
+      challenge: 'Professional service firms face massive administrative delays and data leakage risks managing client onboarding through unencrypted email chains and manual paperwork.',
+      solution: 'A secure client onboarding portal that collects documentation, verifies client details, and maintains a clean, tamper-proof record of compliance.',
       architectureHighlights: [
-        'PostgreSQL Row-Level Security (RLS) ensuring strict multi-tenant legal client isolation.',
-        'Encrypted document intake vault with dynamic PDF hashing and verification logs.',
-        'Automated SRA audit-ready export pipeline with timestamped compliance certificates.'
+        'PostgreSQL Row-Level Security (RLS) ensuring strict multi-tenant client isolation.',
+        'Secure document intake vault with structured file validation and access control.',
+        'Automated audit-ready export pipeline with timestamped verification records.'
       ],
       metrics: [
-        { label: 'Regulatory Alignment', val: 'SRA & AML Built-in' },
-        { label: 'Intake Velocity', val: '80% Faster Sign-up' },
-        { label: 'Security Standard', val: '256-Bit Encrypted Vault' }
+        { label: 'Client Intake', val: '80% Faster Onboarding' },
+        { label: 'Data Isolation', val: 'PostgreSQL RLS Policies' },
+        { label: 'Security Standard', val: 'Encrypted Cloud Storage' }
       ],
-      stack: ['React', 'PostgreSQL', 'Encrypted Auth', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/lexibridge.mp4',
       statusUrl: 'https://lexibridge-alpha.vercel.app'
     },
     queueflow: {
       id: 'queueflow',
       clientSector: 'Commercial Operations & Logistics',
-      title: 'QueueFlow — Multi-Station Dispatch Engine',
-      tagline: 'Zero-Latency Task Orchestration & Live Signage Sync',
-      challenge: 'High-footfall customer counters suffer from bottlenecked queues, disconnected physical TV displays, and desk dispatchers working off manual paper tickets without centralized oversight.',
-      solution: 'A sub-50ms event-driven dispatch platform connecting customer check-in terminals, dynamic digital TV signage, desk operator consoles, and operations manager dashboards into a unified real-time state.',
+      title: 'QueueFlow — Live Operations & Dispatch Hub',
+      tagline: 'Real-Time Task Orchestration & Team Synchronization',
+      challenge: 'Operational teams struggle with disconnected spreadsheets, physical counter delays, and dispatchers working without a single centralized view of tasks.',
+      solution: 'A unified web dashboard connecting customer check-in stations, live status displays, and management consoles into a single synchronized state.',
       architectureHighlights: [
-        'Bi-directional WebSocket streaming architecture with under 45ms state distribution.',
-        'Zero-refresh digital TV signage view with audio chime announcements and priority routing.',
-        'Operator desk telemetry tracking average turnaround times and queue velocity per station.'
+        'Real-time WebSocket data synchronization across all active operator screens.',
+        'Dedicated live operations view with real-time status updates and priority queues.',
+        'Operator telemetry tracking turnaround times and station throughput.'
       ],
       metrics: [
-        { label: 'WebSocket Latency', val: '< 45ms Synchronization' },
-        { label: 'Hardware Output', val: 'Digital TV Signage + Kiosks' },
-        { label: 'Queue Architecture', val: 'Atomic Dispatch State' }
+        { label: 'Sync Speed', val: 'Instant Real-Time State' },
+        { label: 'Interface Design', val: 'Multi-Device Operations' },
+        { label: 'State Management', val: 'Centralized Cloud Database' }
       ],
-      stack: ['React', 'Supabase Realtime', 'WebSockets', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'Supabase Realtime', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/queueflow.mp4',
       statusUrl: 'https://queue-flow-one.vercel.app'
     },
     quotepulse: {
       id: 'quotepulse',
-      clientSector: 'Fintech & Quoting Engines',
-      title: 'QuotePulse — Dynamic Algorithmic Pricing Portal',
-      tagline: 'Real-Time Topology Modeling & Auto-Contract Dispatch',
-      challenge: 'Commercial sales engineers waste 3+ hours per quote calculating multi-tier server configurations, bandwidth multipliers, and cloud profit margins in error-prone spreadsheets.',
-      solution: 'An interactive architectural estimation portal that allows clients to visually scale nodes and compute resources while calculating margin thresholds in real time and automatically compiling contract proposals.',
+      clientSector: 'B2B Sales & Quoting Engines',
+      title: 'QuotePulse — Dynamic Quoting & Proposal Portal',
+      tagline: 'Interactive Pricing Engine & Automated Proposal Generation',
+      challenge: 'Sales and operations teams waste hours calculating custom client pricing and profit margins across complex, error-prone spreadsheets.',
+      solution: 'An interactive quoting portal that allows clients or sales staff to dynamically configure services, calculate margins instantly, and generate clean proposals.',
       architectureHighlights: [
-        'Dynamic pricing state engine with multi-currency conversion (GBP, USD, EUR).',
-        'Custom interactive topology sliders linked to recursive compute cost matrices.',
-        'Instant client proposal compilation with automated CRM lead synchronization.'
+        'Dynamic pricing engine with multi-currency calculations and margin rules.',
+        'Custom interactive configuration sliders linked to structured pricing matrices.',
+        'Instant proposal compilation with direct CRM and database synchronization.'
       ],
       metrics: [
-        { label: 'Quoting Precision', val: '99.4% Automated Accuracy' },
-        { label: 'Currency Switcher', val: 'GBP / USD / EUR Engine' },
-        { label: 'CRM Synchronization', val: 'Integrated Prospect Pipeline' }
+        { label: 'Calculation Speed', val: 'Instant Real-Time Estimates' },
+        { label: 'Currency Support', val: 'Multi-Currency Ready' },
+        { label: 'Lead Pipeline', val: 'Integrated Lead Capture' }
       ],
-      stack: ['React', 'Node.js Engine', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/quotepulse.mp4',
       statusUrl: 'https://quote-pulse-nine.vercel.app'
     },
     mbaretematch: {
       id: 'mbaretematch',
-      clientSector: 'High-Throughput Web Platforms',
-      title: 'Mbarete Match — Scalable Social Matching Engine',
-      tagline: 'Row-Level Security Governance & Instant Messaging Core',
-      challenge: 'Consumer social platforms require sub-second chat updates, robust spam mitigation, and strict data privacy protections without ballooning backend infrastructure expenses.',
-      solution: 'A full-stack matching platform featuring instant two-way WebSocket messaging, dynamic proximity calculations, verified profile workflows, and complete bilingual localization.',
+      clientSector: 'Member Platforms & Web Apps',
+      title: 'Mbarete Match — Full-Stack Community & Matching Platform',
+      tagline: 'Relational Profiles, Instant Messaging & Secure Authentication',
+      challenge: 'Building a responsive, dynamic social platform requires rock-solid authentication, private messaging, and granular user access controls.',
+      solution: 'A full-stack social matching platform featuring real-time messaging, dynamic profile discovery, and strict row-level database security.',
       architectureHighlights: [
-        'Comprehensive PostgreSQL Row-Level Security policies safeguarding private user chats.',
-        'Real-time Supabase message sync with optimistic UI updates and zero layout jank.',
-        'Dynamic GPS coordinate proximity calculations and localized English/Spanish routing.'
+        'PostgreSQL Row-Level Security policies safeguarding user data and private chats.',
+        'Real-time database sync for instant messaging and live interaction feedback.',
+        'Responsive mobile-first interface with multi-language localization.'
       ],
       metrics: [
-        { label: 'Data Security', val: 'Supabase Row-Level Security' },
-        { label: 'Messaging Core', val: 'Zero-Latency 2-Way Chat' },
-        { label: 'Localization', val: 'Bilingual Routing (EN/ES)' }
+        { label: 'Data Protection', val: 'Supabase Row-Level Security' },
+        { label: 'Messaging Core', val: 'Real-Time Live Chat' },
+        { label: 'Architecture', val: 'Full-Stack React + PostgreSQL' }
       ],
       stack: ['React', 'Supabase RLS', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/mbarete-match.mp4',
@@ -137,7 +137,7 @@ export default function App() {
     const formData = new FormData(form);
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
     formData.append("from_name", "Lapacho Creative Lead Gateway");
-    formData.append("subject", "New Architecture Review Request - Lapacho Creative");
+    formData.append("subject", "New Project Discovery Request - Lapacho Creative");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -204,7 +204,7 @@ export default function App() {
                 Lapacho<span className="text-emerald-400 font-light">Creative</span>
               </span>
               <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono tracking-widest text-slate-400 uppercase border border-white/10 rounded-full bg-white/[0.02]">
-                Bespoke Software Studio
+                Custom Web App Studio
               </span>
             </div>
           </div>
@@ -215,7 +215,7 @@ export default function App() {
             <a href="#architecture" className="hover:text-white transition-colors">02. Architecture</a>
             <a href="#leadership" className="hover:text-white transition-colors">03. Principal</a>
             <a href="#model" className="hover:text-white transition-colors">04. Sprint Model</a>
-            <a href="#contact" className="hover:text-white transition-colors">05. Contact</a>
+            <a href="#contact" className="hover:text-white transition-colors">05. Discovery</a>
           </nav>
 
           {/* Desktop CTA */}
@@ -290,7 +290,7 @@ export default function App() {
                 onClick={closeMobileMenu}
                 className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold transition-all"
               >
-                <span>05. Schedule Review</span>
+                <span>05. Schedule Discovery</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
               </a>
             </div>
@@ -306,15 +306,15 @@ export default function App() {
             <div className="lg:col-span-8">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs font-mono mb-8 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>FIXED-PRICE PHASED ENGINEERING SPRINTS</span>
+                <span>RAPID WEB APPLICATIONS & CLIENT PORTALS</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] mb-8">
-                Bespoke software for companies that have outgrown templates.
+                Bespoke web applications for businesses ready to scale past spreadsheets.
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed mb-10">
-                We design, engineer, and deploy high-performance operational hubs, real-time dispatch systems, and compliance gateways. Production-ready software delivered in focused milestone sprints with zero hourly runaways.
+                We design, engineer, and deploy custom client portals, internal operations dashboards, and rapid MVPs. Built on clean modern cloud architecture so your team saves hours of manual work every week.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
@@ -328,7 +328,7 @@ export default function App() {
                   href="#contact"
                   className="px-6 py-3.5 text-xs font-mono font-medium text-slate-300 hover:text-white border border-white/10 hover:border-white/30 rounded-lg transition-all bg-white/[0.02]"
                 >
-                  SCHEDULE ARCHITECTURE REVIEW
+                  BOOK A 15-MIN DISCOVERY CALL
                 </a>
               </div>
             </div>
@@ -348,9 +348,9 @@ export default function App() {
               </div>
 
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
-                <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// REAL-TIME CORE</p>
-                <p className="text-3xl font-bold text-white">&lt; 50ms</p>
-                <p className="text-xs text-slate-400 mt-1">Sub-second WebSocket state distribution</p>
+                <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// MODERN ARCHITECTURE</p>
+                <p className="text-3xl font-bold text-white">Zero Bloat</p>
+                <p className="text-xs text-slate-400 mt-1">Tailored relational database architecture</p>
               </div>
             </div>
 
@@ -372,7 +372,7 @@ export default function App() {
             </p>
           </div>
 
-          {/* Mobile-Only Compact 2x2 Switcher (Keeps the video directly under your finger) */}
+          {/* Mobile-Only Compact 2x2 Switcher */}
           <div className="grid grid-cols-2 gap-2.5 lg:hidden mb-6">
             {Object.keys(caseStudies).map((key) => {
               const item = caseStudies[key];
@@ -405,7 +405,7 @@ export default function App() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Desktop-Only Selector List (Hidden on mobile to eliminate vertical dead space) */}
+            {/* Desktop-Only Selector List */}
             <div className="hidden lg:block lg:col-span-5 space-y-3">
               {Object.keys(caseStudies).map((key) => {
                 const item = caseStudies[key];
@@ -574,26 +574,26 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">01 // POSTGRESQL & RLS</span>
+              <span className="font-mono text-xs text-emerald-400 font-bold">01 // POSTGRESQL & SUPABASE</span>
               <h3 className="text-lg font-bold text-white">Granular Row-Level Security</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Database policies enforcing ironclad tenant isolation at the PostgreSQL level rather than relying on brittle client-side logic.
+                Database policies enforcing strict multi-tenant isolation directly at the database layer rather than relying on vulnerable frontend code.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">02 // SUB-50MS WEBSOCKETS</span>
-              <h3 className="text-lg font-bold text-white">Event-Driven Task Routing</h3>
+              <span className="font-mono text-xs text-emerald-400 font-bold">02 // REAL-TIME DISPATCH</span>
+              <h3 className="text-lg font-bold text-white">Automated Business Workflows</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Real-time pipelines designed for high-concurrency environments—coordinating order flows, dispatchers, and manager dashboards.
+                Eliminating manual data re-entry and email ping-pong with synchronized live dashboards, automated triggers, and instant alerts.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">03 // UK & US REGULATORY ALIGNMENT</span>
-              <h3 className="text-lg font-bold text-white">Strict Compliance & Audits</h3>
+              <span className="font-mono text-xs text-emerald-400 font-bold">03 // RELIABLE DATA ARCHITECTURE</span>
+              <h3 className="text-lg font-bold text-white">Audit Trails & Data Integrity</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                KYC and AML verification gates built to meet UK SRA and institutional requirements with comprehensive audit logging.
+                Clean relational data models with complete history tracking, automated backups, and zero risk of silent data loss.
               </p>
             </div>
           </div>
@@ -616,7 +616,7 @@ export default function App() {
               <div className="space-y-3.5 text-xs font-mono text-slate-400">
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-slate-200">UK-Educated Senior Software Architect</span>
+                  <span className="text-slate-200">UK-Educated Lead Software Developer</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -624,7 +624,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-slate-200">Bilingual English / Spanish Technical Operations</span>
+                  <span className="text-slate-200">Modern Greenfield Architecture (React & Supabase)</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -635,10 +635,10 @@ export default function App() {
 
             <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-xl space-y-5">
               <p className="text-sm text-slate-300 leading-relaxed">
-                <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a high-velocity, single-thread engineering model. When you commission a sprint, your system architecture, PostgreSQL database schema, and live React frontend are designed and built directly by a seasoned British principal engineer.
+                <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a streamlined, direct-delivery model. When you commission a sprint, your client portal, database schema, and custom React interface are designed and built directly by a dedicated UK-educated software developer.
               </p>
               <p className="text-sm text-slate-400 leading-relaxed">
-                We eliminate the agency overhead of account managers, salespeople, and unvetted junior developers. You get direct architectural consultation, guaranteed sprint timelines, and production code engineered to stringent enterprise and regulatory standards.
+                We eliminate agency bureaucracy, account managers, and junior developer handoffs. You get fast greenfield execution, transparent fixed milestone pricing, and clean modern codebases built to solve real business bottlenecks.
               </p>
             </div>
 
@@ -683,7 +683,7 @@ export default function App() {
                 <ul className="space-y-3 text-xs font-mono text-slate-300 mb-8">
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Full React + Tailwind Custom UI</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> PostgreSQL Database & RLS Access Control</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Real-Time WebSockets & Dynamic Calculators</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Real-Time Updates & Dynamic Workflow Portals</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> 100% Full Source Code & IP Handover</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> 14 Days Post-Launch Warranty Support</li>
                 </ul>
@@ -743,16 +743,16 @@ export default function App() {
             
             <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">05. Initial Engagement</span>
             <h2 className="text-3xl font-bold text-white tracking-tight mb-4">
-              Schedule an Architecture Review
+              Schedule a Project Discovery Call
             </h2>
             <p className="text-sm text-slate-400 mb-8 leading-relaxed">
-              Book a 20-minute technical discovery session. We will evaluate your operational bottleneck, map out database dependencies, and deliver a fixed sprint proposal.
+              Book a 15-minute technical discovery session. We will evaluate your operational bottleneck, map out database dependencies, and deliver a fixed sprint proposal.
             </p>
 
             {formSubmitted ? (
               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
                 <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h3 className="text-base font-bold text-white font-mono">Architecture Request Received</h3>
+                <h3 className="text-base font-bold text-white font-mono">Discovery Request Received</h3>
                 <p className="text-xs text-slate-300 font-mono">We will review your system requirements and contact you within 24 hours.</p>
               </div>
             ) : (
@@ -780,12 +780,12 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 uppercase mb-1.5">// Operational Challenge or System Scope</label>
+                  <label className="block text-slate-400 uppercase mb-1.5">// Operational Challenge or Portal Scope</label>
                   <textarea
                     required
                     name="message"
                     rows={3}
-                    placeholder="Describe your current software bottleneck or the custom portal you need built..."
+                    placeholder="Describe your current spreadsheet bottleneck or the custom portal you need built..."
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
                   />
                 </div>
@@ -801,7 +801,7 @@ export default function App() {
                       <span>TRANSMITTING...</span>
                     </>
                   ) : (
-                    <span>REQUEST 20-MIN ARCHITECTURE CALL</span>
+                    <span>REQUEST 15-MIN DISCOVERY CALL</span>
                   )}
                 </button>
               </form>
@@ -813,7 +813,7 @@ export default function App() {
 
       {/* Minimal Studio Footer */}
       <footer className="py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
-        <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering · UK Standards · Distributed Studio.</p>
+        <p>© {new Date().getFullYear()} Lapacho Creative. Custom Web Applications & Portals · UK Standards · Distributed Studio.</p>
       </footer>
     </div>
   );
