@@ -310,7 +310,7 @@ export default function App() {
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] mb-8">
-                Bespoke web applications for businesses ready to scale past spreadsheets.
+                Bespoke web applications & portals built for growing businesses.
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed mb-10">
@@ -785,7 +785,7 @@ export default function App() {
                     required
                     name="message"
                     rows={3}
-                    placeholder="Describe your current spreadsheet bottleneck or the custom portal you need built..."
+                    placeholder="Describe your operational bottleneck or the custom portal you need built..."
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
                   />
                 </div>
