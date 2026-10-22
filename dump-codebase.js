@@ -23,6 +23,7 @@ const IGNORED_DIRS = new Set([
 // Specific files to skip
 const IGNORED_FILES = new Set([
   'full-codebase.txt',
+  'dump-codebase.js',
   'audit-output.txt',
   'site-audit-report.txt',
   'package-lock.json',
@@ -100,7 +101,7 @@ function getSourceFiles(dir) {
 // Main Runner
 function run() {
   console.log('Extracting directory structure and source files...');
-  
+
   let output = '';
 
   output += '===============================================================================\n';

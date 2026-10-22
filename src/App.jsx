@@ -20,7 +20,8 @@ import {
   Workflow,
   Loader2,
   Menu,
-  X
+  X,
+  Linkedin
 } from 'lucide-react';
 
 export default function App() {
@@ -30,6 +31,8 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Set your LinkedIn profile URL here
+  const LINKEDIN_URL = "https://www.linkedin.com/in/your-profile-url";
   const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
   useEffect(() => {
@@ -633,13 +636,27 @@ export default function App() {
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-xl space-y-5">
+            <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-xl space-y-6">
               <p className="text-sm text-slate-300 leading-relaxed">
                 <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a streamlined, direct-delivery model. When you commission a sprint, your client portal, database schema, and custom React interface are designed and built directly by a dedicated UK-educated software developer.
               </p>
               <p className="text-sm text-slate-400 leading-relaxed">
                 We eliminate agency bureaucracy, account managers, and junior developer handoffs. You get fast greenfield execution, transparent fixed milestone pricing, and clean modern codebases built to solve real business bottlenecks.
               </p>
+
+              {/* Direct LinkedIn Credential Badge */}
+              <div className="pt-2 border-t border-white/[0.06] flex items-center">
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-400/50 hover:bg-emerald-500/10 text-xs font-mono text-emerald-400 hover:text-emerald-300 transition-all group shadow-sm"
+                >
+                  <Linkedin className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <span>VERIFIED PRINCIPAL PROFILE</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                </a>
+              </div>
             </div>
 
           </div>
@@ -811,9 +828,21 @@ export default function App() {
         </div>
       </section>
 
-      {/* Minimal Studio Footer */}
-      <footer className="py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
-        <p>© {new Date().getFullYear()} Lapacho Creative. Custom Web Applications & Portals · UK Standards · Distributed Studio.</p>
+      {/* Studio Footer with LinkedIn Connection */}
+      <footer className="py-8 border-t border-white/[0.06] text-xs font-mono text-slate-500">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p>© {new Date().getFullYear()} Lapacho Creative. Custom Web Applications & Portals · UK Standards · Distributed Studio.</p>
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors group"
+          >
+            <Linkedin className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+            <span>Connect on LinkedIn</span>
+            <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
       </footer>
     </div>
   );

@@ -6,7 +6,6 @@ lapacho-creative-web
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-├── dump-codebase.js
 ├── eslint.config.js
 ├── index.html
 ├── package.json
@@ -113,147 +112,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ===============================================================================
-FILE: dump-codebase.js
-===============================================================================
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const OUTPUT_FILE = path.join(__dirname, 'full-codebase.txt');
-const ROOT_DIR = __dirname;
-
-// Directories to ignore completely
-const IGNORED_DIRS = new Set([
-  'node_modules',
-  '.git',
-  '.vercel',
-  'dist',
-  'build',
-  '.next',
-  'coverage',
-  '.vscode'
-]);
-
-// Specific files to skip
-const IGNORED_FILES = new Set([
-  'full-codebase.txt',
-  'audit-output.txt',
-  'site-audit-report.txt',
-  'package-lock.json',
-  'pnpm-lock.yaml',
-  'yarn.lock'
-]);
-
-// Ignored extensions (binary / media assets)
-const IGNORED_EXTENSIONS = new Set([
-  '.png',
-  '.jpg',
-  '.jpeg',
-  '.gif',
-  '.webp',
-  '.ico',
-  '.mp4',
-  '.webm',
-  '.mov',
-  '.pdf',
-  '.zip',
-  '.woff',
-  '.woff2',
-  '.ttf',
-  '.eot'
-]);
-
-// 1. Generate visual directory tree
-function buildDirectoryTree(dir, prefix = '') {
-  let treeString = '';
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  const filteredEntries = entries.filter((entry) => {
-    if (entry.isDirectory() && IGNORED_DIRS.has(entry.name)) return false;
-    if (entry.isFile() && IGNORED_FILES.has(entry.name)) return false;
-    return true;
-  });
-
-  filteredEntries.forEach((entry, index) => {
-    const isLast = index === filteredEntries.length - 1;
-    const connector = isLast ? '└── ' : '├── ';
-    treeString += `${prefix}${connector}${entry.name}\n`;
-
-    if (entry.isDirectory()) {
-      const childPrefix = prefix + (isLast ? '    ' : '│   ');
-      treeString += buildDirectoryTree(path.join(dir, entry.name), childPrefix);
-    }
-  });
-
-  return treeString;
-}
-
-// 2. Collect all readable source file paths recursively
-function getSourceFiles(dir) {
-  let files = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-
-    if (entry.isDirectory()) {
-      if (!IGNORED_DIRS.has(entry.name)) {
-        files = files.concat(getSourceFiles(fullPath));
-      }
-    } else if (entry.isFile()) {
-      if (IGNORED_FILES.has(entry.name)) continue;
-      const ext = path.extname(entry.name).toLowerCase();
-      if (IGNORED_EXTENSIONS.has(ext)) continue;
-      files.push(fullPath);
-    }
-  }
-
-  return files;
-}
-
-// Main Runner
-function run() {
-  console.log('Extracting directory structure and source files...');
-  
-  let output = '';
-
-  output += '===============================================================================\n';
-  output += 'PROJECT DIRECTORY STRUCTURE\n';
-  output += '===============================================================================\n\n';
-  output += path.basename(ROOT_DIR) + '\n';
-  output += buildDirectoryTree(ROOT_DIR);
-  output += '\n\n';
-
-  output += '===============================================================================\n';
-  output += 'FULL SOURCE CODE FILES\n';
-  output += '===============================================================================\n\n';
-
-  const allFiles = getSourceFiles(ROOT_DIR);
-
-  allFiles.forEach((filePath) => {
-    const relativePath = path.relative(ROOT_DIR, filePath);
-    try {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      output += '===============================================================================\n';
-      output += `FILE: ${relativePath}\n`;
-      output += '===============================================================================\n';
-      output += content;
-      output += '\n\n';
-    } catch (err) {
-      output += `// Error reading file ${relativePath}: ${err.message}\n\n`;
-    }
-  });
-
-  fs.writeFileSync(OUTPUT_FILE, output, 'utf-8');
-  console.log(`Success! Complete project bundle exported to:\n-> ${OUTPUT_FILE}`);
-}
-
-run();
-
-===============================================================================
 FILE: eslint.config.js
 ===============================================================================
 import js from '@eslint/js'
@@ -286,7 +144,7 @@ FILE: index.html
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lapacho Creative — Bespoke Software Engineering Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -351,7 +209,17 @@ export default {
 ===============================================================================
 FILE: public/favicon.svg
 ===============================================================================
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="46" fill="none" viewBox="0 0 48 46"><path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" style="fill:#863bff;fill:color(display-p3 .5252 .23 1);fill-opacity:1"/><mask id="a" width="48" height="46" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#000" d="M25.842 44.938c-.664.844-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.183c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.498 0-3.579-1.842-3.579H1.133c-.92 0-1.456-1.04-.92-1.787L9.91.473c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.578 1.842 3.578h11.377c.943 0 1.473 1.088.89 1.832L25.843 44.94z" style="fill:#000;fill-opacity:1"/></mask><g mask="url(#a)"><g filter="url(#b)"><ellipse cx="5.508" cy="14.704" fill="#ede6ff" rx="5.508" ry="14.704" style="fill:#ede6ff;fill:color(display-p3 .9275 .9033 1);fill-opacity:1" transform="matrix(.00324 1 1 -.00324 -4.47 31.516)"/></g><g filter="url(#c)"><ellipse cx="10.399" cy="29.851" fill="#ede6ff" rx="10.399" ry="29.851" style="fill:#ede6ff;fill:color(display-p3 .9275 .9033 1);fill-opacity:1" transform="matrix(.00324 1 1 -.00324 -39.328 7.883)"/></g><g filter="url(#d)"><ellipse cx="5.508" cy="30.487" fill="#7e14ff" rx="5.508" ry="30.487" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(89.814 -25.913 -14.639)scale(1 -1)"/></g><g filter="url(#e)"><ellipse cx="5.508" cy="30.599" fill="#7e14ff" rx="5.508" ry="30.599" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(89.814 -32.644 -3.334)scale(1 -1)"/></g><g filter="url(#f)"><ellipse cx="5.508" cy="30.599" fill="#7e14ff" rx="5.508" ry="30.599" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="matrix(.00324 1 1 -.00324 -34.34 30.47)"/></g><g filter="url(#g)"><ellipse cx="14.072" cy="22.078" fill="#ede6ff" rx="14.072" ry="22.078" style="fill:#ede6ff;fill:color(display-p3 .9275 .9033 1);fill-opacity:1" transform="rotate(93.35 24.506 48.493)scale(-1 1)"/></g><g filter="url(#h)"><ellipse cx="3.47" cy="21.501" fill="#7e14ff" rx="3.47" ry="21.501" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(89.009 28.708 47.59)scale(-1 1)"/></g><g filter="url(#i)"><ellipse cx="3.47" cy="21.501" fill="#7e14ff" rx="3.47" ry="21.501" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(89.009 28.708 47.59)scale(-1 1)"/></g><g filter="url(#j)"><ellipse cx=".387" cy="8.972" fill="#7e14ff" rx="4.407" ry="29.108" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(39.51 .387 8.972)"/></g><g filter="url(#k)"><ellipse cx="47.523" cy="-6.092" fill="#7e14ff" rx="4.407" ry="29.108" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(37.892 47.523 -6.092)"/></g><g filter="url(#l)"><ellipse cx="41.412" cy="6.333" fill="#47bfff" rx="5.971" ry="9.665" style="fill:#47bfff;fill:color(display-p3 .2799 .748 1);fill-opacity:1" transform="rotate(37.892 41.412 6.333)"/></g><g filter="url(#m)"><ellipse cx="-1.879" cy="38.332" fill="#7e14ff" rx="4.407" ry="29.108" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(37.892 -1.88 38.332)"/></g><g filter="url(#n)"><ellipse cx="-1.879" cy="38.332" fill="#7e14ff" rx="4.407" ry="29.108" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(37.892 -1.88 38.332)"/></g><g filter="url(#o)"><ellipse cx="35.651" cy="29.907" fill="#7e14ff" rx="4.407" ry="29.108" style="fill:#7e14ff;fill:color(display-p3 .4922 .0767 1);fill-opacity:1" transform="rotate(37.892 35.651 29.907)"/></g><g filter="url(#p)"><ellipse cx="38.418" cy="32.4" fill="#47bfff" rx="5.971" ry="15.297" style="fill:#47bfff;fill:color(display-p3 .2799 .748 1);fill-opacity:1" transform="rotate(37.892 38.418 32.4)"/></g></g><defs><filter id="b" width="60.045" height="41.654" x="-19.77" y="16.149" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="7.659"/></filter><filter id="c" width="90.34" height="51.437" x="-54.613" y="-7.533" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="7.659"/></filter><filter id="d" width="79.355" height="29.4" x="-49.64" y="2.03" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="e" width="79.579" height="29.4" x="-45.045" y="20.029" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="f" width="79.579" height="29.4" x="-43.513" y="21.178" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="g" width="74.749" height="58.852" x="15.756" y="-17.901" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="7.659"/></filter><filter id="h" width="61.377" height="25.362" x="23.548" y="2.284" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="i" width="61.377" height="25.362" x="23.548" y="2.284" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="j" width="56.045" height="63.649" x="-27.636" y="-22.853" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="k" width="54.814" height="64.646" x="20.116" y="-38.415" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="l" width="33.541" height="35.313" x="24.641" y="-11.323" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="m" width="54.814" height="64.646" x="-29.286" y="6.009" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="n" width="54.814" height="64.646" x="-29.286" y="6.009" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="o" width="54.814" height="64.646" x="8.244" y="-2.416" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter><filter id="p" width="39.409" height="43.623" x="18.713" y="10.588" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_2002_17158" stdDeviation="4.596"/></filter></defs></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#07090e" stroke="#10b981" stroke-width="1.5" stroke-opacity="0.3"/>
+  <g transform="translate(4, 4)">
+    <path d="M12 2C9 7 9 9 12 12C15 9 15 7 12 2Z" fill="#34d399" fill-opacity="0.25" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 22C9 17 9 15 12 12C15 15 15 17 12 22Z" fill="#34d399" fill-opacity="0.25" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2 12C7 9 9 9 12 12C9 15 7 15 2 12Z" fill="#34d399" fill-opacity="0.25" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 12C17 9 15 9 12 12C15 15 17 15 22 12Z" fill="#34d399" fill-opacity="0.25" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="1.5" fill="#34d399" stroke="#34d399" stroke-width="1"/>
+  </g>
+</svg>
+
 
 ===============================================================================
 FILE: public/icons.svg
@@ -594,7 +462,9 @@ import {
   AlertCircle,
   FileCode,
   Workflow,
-  Loader2
+  Loader2,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function App() {
@@ -602,6 +472,7 @@ export default function App() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
@@ -617,82 +488,82 @@ export default function App() {
     lexibridge: {
       id: 'lexibridge',
       clientSector: 'Legal & Professional Services',
-      title: 'LexiBridge — Regulatory Compliance Gateway',
-      tagline: 'Automating AML Origin-of-Funds Verification & SRA Compliance',
-      challenge: 'UK legal practices face severe SRA audit penalties when managing partner onboarding manually through paper forms and unencrypted email PDF chains, leading to 5-day intake delays.',
-      solution: 'An encrypted client onboarding portal that automatically verifies proof of identity, screens against global PEP lists, validates source-of-funds documentation, and compiles a sealed compliance audit trail.',
+      title: 'LexiBridge — Client Onboarding & Compliance Portal',
+      tagline: 'Automating Intake, Document Verification & Tenant Data Isolation',
+      challenge: 'Professional service firms face massive administrative delays and data leakage risks managing client onboarding through unencrypted email chains and manual paperwork.',
+      solution: 'A secure client onboarding portal that collects documentation, verifies client details, and maintains a clean, tamper-proof record of compliance.',
       architectureHighlights: [
-        'PostgreSQL Row-Level Security (RLS) ensuring strict multi-tenant legal client isolation.',
-        'Encrypted document intake vault with dynamic PDF hashing and verification logs.',
-        'Automated SRA audit-ready export pipeline with timestamped compliance certificates.'
+        'PostgreSQL Row-Level Security (RLS) ensuring strict multi-tenant client isolation.',
+        'Secure document intake vault with structured file validation and access control.',
+        'Automated audit-ready export pipeline with timestamped verification records.'
       ],
       metrics: [
-        { label: 'Regulatory Alignment', val: 'SRA & AML Built-in' },
-        { label: 'Intake Velocity', val: '80% Faster Sign-up' },
-        { label: 'Security Standard', val: '256-Bit Encrypted Vault' }
+        { label: 'Client Intake', val: '80% Faster Onboarding' },
+        { label: 'Data Isolation', val: 'PostgreSQL RLS Policies' },
+        { label: 'Security Standard', val: 'Encrypted Cloud Storage' }
       ],
-      stack: ['React', 'PostgreSQL', 'Encrypted Auth', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'Supabase', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/lexibridge.mp4',
       statusUrl: 'https://lexibridge-alpha.vercel.app'
     },
     queueflow: {
       id: 'queueflow',
       clientSector: 'Commercial Operations & Logistics',
-      title: 'QueueFlow — Multi-Station Dispatch Engine',
-      tagline: 'Zero-Latency Task Orchestration & Live Signage Sync',
-      challenge: 'High-footfall customer counters suffer from bottlenecked queues, disconnected physical TV displays, and desk dispatchers working off manual paper tickets without centralized oversight.',
-      solution: 'A sub-50ms event-driven dispatch platform connecting customer check-in terminals, dynamic digital TV signage, desk operator consoles, and operations manager dashboards into a unified real-time state.',
+      title: 'QueueFlow — Live Operations & Dispatch Hub',
+      tagline: 'Real-Time Task Orchestration & Team Synchronization',
+      challenge: 'Operational teams struggle with disconnected spreadsheets, physical counter delays, and dispatchers working without a single centralized view of tasks.',
+      solution: 'A unified web dashboard connecting customer check-in stations, live status displays, and management consoles into a single synchronized state.',
       architectureHighlights: [
-        'Bi-directional WebSocket streaming architecture with under 45ms state distribution.',
-        'Zero-refresh digital TV signage view with audio chime announcements and priority routing.',
-        'Operator desk telemetry tracking average turnaround times and queue velocity per station.'
+        'Real-time WebSocket data synchronization across all active operator screens.',
+        'Dedicated live operations view with real-time status updates and priority queues.',
+        'Operator telemetry tracking turnaround times and station throughput.'
       ],
       metrics: [
-        { label: 'WebSocket Latency', val: '< 45ms Synchronization' },
-        { label: 'Hardware Output', val: 'Digital TV Signage + Kiosks' },
-        { label: 'Queue Architecture', val: 'Atomic Dispatch State' }
+        { label: 'Sync Speed', val: 'Instant Real-Time State' },
+        { label: 'Interface Design', val: 'Multi-Device Operations' },
+        { label: 'State Management', val: 'Centralized Cloud Database' }
       ],
-      stack: ['React', 'Supabase Realtime', 'WebSockets', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'Supabase Realtime', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/queueflow.mp4',
       statusUrl: 'https://queue-flow-one.vercel.app'
     },
     quotepulse: {
       id: 'quotepulse',
-      clientSector: 'Fintech & Quoting Engines',
-      title: 'QuotePulse — Dynamic Algorithmic Pricing Portal',
-      tagline: 'Real-Time Topology Modeling & Auto-Contract Dispatch',
-      challenge: 'Commercial sales engineers waste 3+ hours per quote calculating multi-tier server configurations, bandwidth multipliers, and cloud profit margins in error-prone spreadsheets.',
-      solution: 'An interactive architectural estimation portal that allows clients to visually scale nodes and compute resources while calculating margin thresholds in real time and automatically compiling contract proposals.',
+      clientSector: 'B2B Sales & Quoting Engines',
+      title: 'QuotePulse — Dynamic Quoting & Proposal Portal',
+      tagline: 'Interactive Pricing Engine & Automated Proposal Generation',
+      challenge: 'Sales and operations teams waste hours calculating custom client pricing and profit margins across complex, error-prone spreadsheets.',
+      solution: 'An interactive quoting portal that allows clients or sales staff to dynamically configure services, calculate margins instantly, and generate clean proposals.',
       architectureHighlights: [
-        'Dynamic pricing state engine with multi-currency conversion (GBP, USD, EUR).',
-        'Custom interactive topology sliders linked to recursive compute cost matrices.',
-        'Instant client proposal compilation with automated CRM lead synchronization.'
+        'Dynamic pricing engine with multi-currency calculations and margin rules.',
+        'Custom interactive configuration sliders linked to structured pricing matrices.',
+        'Instant proposal compilation with direct CRM and database synchronization.'
       ],
       metrics: [
-        { label: 'Quoting Precision', val: '99.4% Automated Accuracy' },
-        { label: 'Currency Switcher', val: 'GBP / USD / EUR Engine' },
-        { label: 'CRM Synchronization', val: 'Integrated Prospect Pipeline' }
+        { label: 'Calculation Speed', val: 'Instant Real-Time Estimates' },
+        { label: 'Currency Support', val: 'Multi-Currency Ready' },
+        { label: 'Lead Pipeline', val: 'Integrated Lead Capture' }
       ],
-      stack: ['React', 'Node.js Engine', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
+      stack: ['React', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/quotepulse.mp4',
       statusUrl: 'https://quote-pulse-nine.vercel.app'
     },
     mbaretematch: {
       id: 'mbaretematch',
-      clientSector: 'High-Throughput Web Platforms',
-      title: 'Mbarete Match — Scalable Social Matching Engine',
-      tagline: 'Row-Level Security Governance & Instant Messaging Core',
-      challenge: 'Consumer social platforms require sub-second chat updates, robust spam mitigation, and strict data privacy protections without ballooning backend infrastructure expenses.',
-      solution: 'A full-stack matching platform featuring instant two-way WebSocket messaging, dynamic proximity calculations, verified profile workflows, and complete bilingual localization.',
+      clientSector: 'Member Platforms & Web Apps',
+      title: 'Mbarete Match — Full-Stack Community & Matching Platform',
+      tagline: 'Relational Profiles, Instant Messaging & Secure Authentication',
+      challenge: 'Building a responsive, dynamic social platform requires rock-solid authentication, private messaging, and granular user access controls.',
+      solution: 'A full-stack social matching platform featuring real-time messaging, dynamic profile discovery, and strict row-level database security.',
       architectureHighlights: [
-        'Comprehensive PostgreSQL Row-Level Security policies safeguarding private user chats.',
-        'Real-time Supabase message sync with optimistic UI updates and zero layout jank.',
-        'Dynamic GPS coordinate proximity calculations and localized English/Spanish routing.'
+        'PostgreSQL Row-Level Security policies safeguarding user data and private chats.',
+        'Real-time database sync for instant messaging and live interaction feedback.',
+        'Responsive mobile-first interface with multi-language localization.'
       ],
       metrics: [
-        { label: 'Data Security', val: 'Supabase Row-Level Security' },
-        { label: 'Messaging Core', val: 'Zero-Latency 2-Way Chat' },
-        { label: 'Localization', val: 'Bilingual Routing (EN/ES)' }
+        { label: 'Data Protection', val: 'Supabase Row-Level Security' },
+        { label: 'Messaging Core', val: 'Real-Time Live Chat' },
+        { label: 'Architecture', val: 'Full-Stack React + PostgreSQL' }
       ],
       stack: ['React', 'Supabase RLS', 'PostgreSQL', 'Tailwind CSS', 'Vite'],
       videoSrc: '/videos/mbarete-match.mp4',
@@ -710,7 +581,7 @@ export default function App() {
     const formData = new FormData(form);
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
     formData.append("from_name", "Lapacho Creative Lead Gateway");
-    formData.append("subject", "New Architecture Review Request - Lapacho Creative");
+    formData.append("subject", "New Project Discovery Request - Lapacho Creative");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -730,6 +601,10 @@ export default function App() {
     }
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#07090e] text-slate-100 selection:bg-emerald-400 selection:text-black overflow-x-hidden font-sans">
       
@@ -745,12 +620,12 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07090e]/90 backdrop-blur-xl border-b border-white/[0.08]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07090e]/95 backdrop-blur-xl border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
             
             {/* Geometric Lapacho Emblem */}
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <a href="#" className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.15)] hover:border-emerald-400/40 transition-colors">
               <svg 
                 viewBox="0 0 24 24" 
                 fill="none" 
@@ -766,53 +641,124 @@ export default function App() {
                 <path d="M22 12C17 9 15 9 12 12C15 15 17 15 22 12Z" fill="currentColor" fillOpacity="0.25" />
                 <circle cx="12" cy="12" r="1.5" className="fill-emerald-400" />
               </svg>
-            </div>
+            </a>
 
             <div className="flex items-center gap-3">
               <span className="font-bold tracking-tight text-white text-base">
                 Lapacho<span className="text-emerald-400 font-light">Creative</span>
               </span>
               <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono tracking-widest text-slate-400 uppercase border border-white/10 rounded-full bg-white/[0.02]">
-                Bespoke Software Studio
+                Custom Web App Studio
               </span>
             </div>
           </div>
 
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-xs font-mono tracking-widest text-slate-400 uppercase">
             <a href="#showcase" className="hover:text-white transition-colors">01. Showcase</a>
             <a href="#architecture" className="hover:text-white transition-colors">02. Architecture</a>
             <a href="#leadership" className="hover:text-white transition-colors">03. Principal</a>
             <a href="#model" className="hover:text-white transition-colors">04. Sprint Model</a>
-            <a href="#contact" className="hover:text-white transition-colors">05. Contact</a>
+            <a href="#contact" className="hover:text-white transition-colors">05. Discovery</a>
           </nav>
 
-          <a
-            href="#contact"
-            className="group relative inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_15px_rgba(52,211,153,0.25)] active:scale-95"
-          >
-            <span>DISCUSS PROJECT</span>
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_15px_rgba(52,211,153,0.25)] active:scale-95"
+            >
+              <span>DISCUSS PROJECT</span>
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* Mobile Actions: Compact CTA & Hamburger Toggle */}
+          <div className="flex md:hidden items-center gap-2.5">
+            <a
+              href="#contact"
+              className="px-3 py-1.5 text-[11px] font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-all shadow-[0_0_10px_rgba(52,211,153,0.2)]"
+            >
+              DISCUSS
+            </a>
+            
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-slate-300 hover:text-white hover:bg-white/[0.04] rounded-lg border border-white/10 transition-all focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-400" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
         </div>
+
+        {/* Mobile Slide-Down Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-white/[0.08] bg-[#07090e]/98 px-6 py-6 font-mono text-xs uppercase tracking-widest space-y-4 shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="flex flex-col space-y-3.5">
+              <a 
+                href="#showcase" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>01. Showcase</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#architecture" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>02. Architecture</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#leadership" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>03. Principal</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#model" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+              >
+                <span>04. Sprint Model</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+              <a 
+                href="#contact" 
+                onClick={closeMobileMenu}
+                className="flex items-center justify-between p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-bold transition-all"
+              >
+                <span>05. Schedule Discovery</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 sm:pt-48 sm:pb-28 border-b border-white/[0.08]">
+      <section className="relative pt-36 pb-20 sm:pt-48 sm:pb-28 border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
             <div className="lg:col-span-8">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs font-mono mb-8 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>FIXED-PRICE PHASED ENGINEERING SPRINTS</span>
+                <span>RAPID WEB APPLICATIONS & CLIENT PORTALS</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] mb-8">
-                Bespoke software for companies that have outgrown templates.
+                Bespoke web applications & portals built for growing businesses.
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed mb-10">
-                We design, engineer, and deploy high-performance operational hubs, real-time dispatch systems, and compliance gateways. Production-ready software delivered in focused milestone sprints with zero hourly runaways.
+                We design, engineer, and deploy custom client portals, internal operations dashboards, and rapid MVPs. Built on clean modern cloud architecture so your team saves hours of manual work every week.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
@@ -826,7 +772,7 @@ export default function App() {
                   href="#contact"
                   className="px-6 py-3.5 text-xs font-mono font-medium text-slate-300 hover:text-white border border-white/10 hover:border-white/30 rounded-lg transition-all bg-white/[0.02]"
                 >
-                  SCHEDULE ARCHITECTURE REVIEW
+                  BOOK A 15-MIN DISCOVERY CALL
                 </a>
               </div>
             </div>
@@ -846,9 +792,9 @@ export default function App() {
               </div>
 
               <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all hover:bg-white/[0.03]">
-                <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// REAL-TIME CORE</p>
-                <p className="text-3xl font-bold text-white">&lt; 50ms</p>
-                <p className="text-xs text-slate-400 mt-1">Sub-second WebSocket state distribution</p>
+                <p className="text-xs text-slate-400 uppercase tracking-widest mb-1">// MODERN ARCHITECTURE</p>
+                <p className="text-3xl font-bold text-white">Zero Bloat</p>
+                <p className="text-xs text-slate-400 mt-1">Tailored relational database architecture</p>
               </div>
             </div>
 
@@ -860,20 +806,51 @@ export default function App() {
       <section id="showcase" className="py-24 border-b border-white/[0.08] bg-[#090b12]/90 relative">
         <div className="max-w-7xl mx-auto px-6 sm:px-10">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 lg:mb-12 gap-6">
             <div>
               <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">01. Live Systems</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Production Showcase</h2>
             </div>
             <p className="text-xs font-mono text-slate-400 max-w-sm">
-              Click any system below to inspect the functional video capture and deep architectural breakdown.
+              Select any system below to inspect the functional video capture and deep architectural breakdown.
             </p>
+          </div>
+
+          {/* Mobile-Only Compact 2x2 Switcher */}
+          <div className="grid grid-cols-2 gap-2.5 lg:hidden mb-6">
+            {Object.keys(caseStudies).map((key) => {
+              const item = caseStudies[key];
+              const isSelected = activeTab === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveTab(key)}
+                  className={`p-3 rounded-xl border text-left transition-all ${
+                    isSelected 
+                      ? 'bg-emerald-500/15 border-emerald-400/80 shadow-md shadow-emerald-500/10' 
+                      : 'bg-white/[0.02] border-white/[0.08] hover:border-white/20'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[9px] font-mono tracking-wider uppercase text-slate-400 truncate">
+                      {item.clientSector.split('&')[0].trim()}
+                    </span>
+                    {isSelected && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    )}
+                  </div>
+                  <h3 className={`text-xs font-bold truncate ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                    {item.title.split('—')[0].trim()}
+                  </h3>
+                </button>
+              );
+            })}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Column: Interactive Selector List */}
-            <div className="lg:col-span-5 space-y-3">
+            {/* Desktop-Only Selector List */}
+            <div className="hidden lg:block lg:col-span-5 space-y-3">
               {Object.keys(caseStudies).map((key) => {
                 const item = caseStudies[key];
                 const isSelected = activeTab === key;
@@ -909,8 +886,8 @@ export default function App() {
               })}
             </div>
 
-            {/* Right Column: Active Video & Rich Specs Theater */}
-            <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
+            {/* Active Video & Rich Specs Theater */}
+            <div className="w-full lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl">
               
               {/* Browser/Terminal Window Chrome Bar */}
               <div className="px-4 py-3 bg-[#080910] border-b border-white/[0.06] flex items-center justify-between font-mono text-[11px] text-slate-400">
@@ -926,7 +903,7 @@ export default function App() {
                   href={active.statusUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="px-3 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/40 transition-all truncate max-w-[240px] flex items-center gap-1.5"
+                  className="px-3 py-0.5 rounded-full bg-black/60 border border-white/10 text-[10px] text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/40 transition-all truncate max-w-[200px] sm:max-w-[240px] flex items-center gap-1.5"
                 >
                   <span>{active.statusUrl}</span>
                   <ArrowUpRight className="w-2.5 h-2.5 shrink-0" />
@@ -1041,26 +1018,26 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">01 // POSTGRESQL & RLS</span>
+              <span className="font-mono text-xs text-emerald-400 font-bold">01 // POSTGRESQL & SUPABASE</span>
               <h3 className="text-lg font-bold text-white">Granular Row-Level Security</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Database policies enforcing ironclad tenant isolation at the PostgreSQL level rather than relying on brittle client-side logic.
+                Database policies enforcing strict multi-tenant isolation directly at the database layer rather than relying on vulnerable frontend code.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">02 // SUB-50MS WEBSOCKETS</span>
-              <h3 className="text-lg font-bold text-white">Event-Driven Task Routing</h3>
+              <span className="font-mono text-xs text-emerald-400 font-bold">02 // REAL-TIME DISPATCH</span>
+              <h3 className="text-lg font-bold text-white">Automated Business Workflows</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Real-time pipelines designed for high-concurrency environments—coordinating order flows, dispatchers, and manager dashboards.
+                Eliminating manual data re-entry and email ping-pong with synchronized live dashboards, automated triggers, and instant alerts.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-emerald-500/30 transition-all space-y-3 hover:bg-white/[0.03]">
-              <span className="font-mono text-xs text-emerald-400 font-bold">03 // UK & US REGULATORY ALIGNMENT</span>
-              <h3 className="text-lg font-bold text-white">Strict Compliance & Audits</h3>
+              <span className="font-mono text-xs text-emerald-400 font-bold">03 // RELIABLE DATA ARCHITECTURE</span>
+              <h3 className="text-lg font-bold text-white">Audit Trails & Data Integrity</h3>
               <p className="text-sm text-slate-400 leading-relaxed">
-                KYC and AML verification gates built to meet UK SRA and institutional requirements with comprehensive audit logging.
+                Clean relational data models with complete history tracking, automated backups, and zero risk of silent data loss.
               </p>
             </div>
           </div>
@@ -1083,7 +1060,7 @@ export default function App() {
               <div className="space-y-3.5 text-xs font-mono text-slate-400">
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-slate-200">UK-Educated Senior Software Architect</span>
+                  <span className="text-slate-200">UK-Educated Lead Software Developer</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -1091,7 +1068,7 @@ export default function App() {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-slate-200">Bilingual English / Spanish Technical Operations</span>
+                  <span className="text-slate-200">Modern Greenfield Architecture (React & Supabase)</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -1102,10 +1079,10 @@ export default function App() {
 
             <div className="lg:col-span-7 bg-[#0c0e18] border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-xl space-y-5">
               <p className="text-sm text-slate-300 leading-relaxed">
-                <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a high-velocity, single-thread engineering model. When you commission a sprint, your system architecture, PostgreSQL database schema, and live React frontend are designed and built directly by a seasoned British principal engineer.
+                <strong className="text-white font-semibold">Lapacho Creative</strong> operates on a streamlined, direct-delivery model. When you commission a sprint, your client portal, database schema, and custom React interface are designed and built directly by a dedicated UK-educated software developer.
               </p>
               <p className="text-sm text-slate-400 leading-relaxed">
-                We eliminate the agency overhead of account managers, salespeople, and unvetted junior developers. You get direct architectural consultation, guaranteed sprint timelines, and production code engineered to stringent enterprise and regulatory standards.
+                We eliminate agency bureaucracy, account managers, and junior developer handoffs. You get fast greenfield execution, transparent fixed milestone pricing, and clean modern codebases built to solve real business bottlenecks.
               </p>
             </div>
 
@@ -1150,7 +1127,7 @@ export default function App() {
                 <ul className="space-y-3 text-xs font-mono text-slate-300 mb-8">
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Full React + Tailwind Custom UI</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> PostgreSQL Database & RLS Access Control</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Real-Time WebSockets & Dynamic Calculators</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> Real-Time Updates & Dynamic Workflow Portals</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> 100% Full Source Code & IP Handover</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-emerald-400" /> 14 Days Post-Launch Warranty Support</li>
                 </ul>
@@ -1210,16 +1187,16 @@ export default function App() {
             
             <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 block mb-2">05. Initial Engagement</span>
             <h2 className="text-3xl font-bold text-white tracking-tight mb-4">
-              Schedule an Architecture Review
+              Schedule a Project Discovery Call
             </h2>
             <p className="text-sm text-slate-400 mb-8 leading-relaxed">
-              Book a 20-minute technical discovery session. We will evaluate your operational bottleneck, map out database dependencies, and deliver a fixed sprint proposal.
+              Book a 15-minute technical discovery session. We will evaluate your operational bottleneck, map out database dependencies, and deliver a fixed sprint proposal.
             </p>
 
             {formSubmitted ? (
               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
                 <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h3 className="text-base font-bold text-white font-mono">Architecture Request Received</h3>
+                <h3 className="text-base font-bold text-white font-mono">Discovery Request Received</h3>
                 <p className="text-xs text-slate-300 font-mono">We will review your system requirements and contact you within 24 hours.</p>
               </div>
             ) : (
@@ -1247,12 +1224,12 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-400 uppercase mb-1.5">// Operational Challenge or System Scope</label>
+                  <label className="block text-slate-400 uppercase mb-1.5">// Operational Challenge or Portal Scope</label>
                   <textarea
                     required
                     name="message"
                     rows={3}
-                    placeholder="Describe your current software bottleneck or the custom portal you need built..."
+                    placeholder="Describe your operational bottleneck or the custom portal you need built..."
                     className="w-full px-4 py-3 bg-black/60 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-emerald-400 font-sans text-sm"
                   />
                 </div>
@@ -1268,7 +1245,7 @@ export default function App() {
                       <span>TRANSMITTING...</span>
                     </>
                   ) : (
-                    <span>REQUEST 20-MIN ARCHITECTURE CALL</span>
+                    <span>REQUEST 15-MIN DISCOVERY CALL</span>
                   )}
                 </button>
               </form>
@@ -1280,7 +1257,7 @@ export default function App() {
 
       {/* Minimal Studio Footer */}
       <footer className="py-8 border-t border-white/[0.06] text-center text-xs font-mono text-slate-500">
-        <p>© {new Date().getFullYear()} Lapacho Creative. High-performance software engineering · UK Standards · Distributed Studio.</p>
+        <p>© {new Date().getFullYear()} Lapacho Creative. Custom Web Applications & Portals · UK Standards · Distributed Studio.</p>
       </footer>
     </div>
   );
