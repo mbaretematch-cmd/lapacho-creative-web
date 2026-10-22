@@ -20,8 +20,7 @@ import {
   Workflow,
   Loader2,
   Menu,
-  X,
-  Linkedin
+  X
 } from 'lucide-react';
 
 export default function App() {
@@ -31,7 +30,6 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Set your LinkedIn profile URL here
   const LINKEDIN_URL = "https://www.linkedin.com/in/stuart-robson-0a8754434";
   const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
@@ -652,7 +650,19 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-emerald-400/50 hover:bg-emerald-500/10 text-xs font-mono text-emerald-400 hover:text-emerald-300 transition-all group shadow-sm"
                 >
-                  <Linkedin className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                    <rect x="2" y="9" width="4" height="12" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
                   <span>VERIFIED PRINCIPAL PROFILE</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
@@ -838,7 +848,19 @@ export default function App() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors group"
           >
-            <Linkedin className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+            <svg 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors"
+            >
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
             <span>Connect on LinkedIn</span>
             <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
