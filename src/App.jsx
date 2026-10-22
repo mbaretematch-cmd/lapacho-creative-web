@@ -32,7 +32,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Set your LinkedIn profile URL here
-  const LINKEDIN_URL = "https://www.linkedin.com/in/your-profile-url";
+  const LINKEDIN_URL = "https://www.linkedin.com/in/stuart-robson-0a8754434";
   const WEB3FORMS_ACCESS_KEY = "06931be5-f53a-4fab-a401-ede21dd64cd6";
 
   useEffect(() => {
